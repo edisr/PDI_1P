@@ -8,6 +8,7 @@ import cv2
 import numpy as np
 from skimage.measure import shannon_entropy
 import pandas as pd
+from wthe import calcula_wthe
 
 def calcula_ambe(image1, image2):
     """ Error de Brillo Medio Absoluto (AMBE) """
@@ -38,16 +39,18 @@ if image_gray is None:
 else:
     # Equalizar el histograma de la imagen
     equalized_image = cv2.equalizeHist(image_gray)
-    print("hoa")
+    wthe_image= calcula_wthe(image_gray)
     # Aplicar CLAHE imagen
     clahe = cv2.createCLAHE()
     cl1 = clahe.apply(image_gray)
+     # Aplicar WTHE a la imagen
+    wthe_image= calcula_wthe(image_gray)
     
     # Mostrar la imagen original,la imagen equalizada y por CLAHE
     cv2.imshow('Original Image', image_gray)
     cv2.imshow('Equalized Image', equalized_image)
     cv2.imshow('Clahe', cl1)
-    
+    cv2.imshow('WTHE', wthe_image)
    
 
     datos = {
@@ -59,7 +62,11 @@ else:
         "Imagen ecualizada por clahe": [calcula_ambe(image_gray, cl1),
                                        calcula_psnr(image_gray, cl1),
                                        calcula_entropia(cl1),
-                                       calcula_contraste(cl1)]
+                                       calcula_contraste(cl1)],
+         "Imagen ecualizada por WTHE": [calcula_ambe(image_gray, wthe_image),
+                                       calcula_psnr(image_gray, wthe_image),
+                                       calcula_entropia(wthe_image),
+                                       calcula_contraste(wthe_image)]
     }
 
     # Crear tabla con pandas
