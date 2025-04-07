@@ -1,14 +1,10 @@
-# -*- coding: utf-8 -*-
-"""
-Editor de Spyder
 
-Este es un archivo temporal.
-"""
 import cv2
 import numpy as np
 from skimage.measure import shannon_entropy
 import pandas as pd
 from wthe import calcula_wthe
+from dibujo_hist import dibujar_histograma
 
 def calcula_ambe(image1, image2):
     """ Error de Brillo Medio Absoluto (AMBE) """
@@ -47,10 +43,16 @@ else:
     wthe_image= calcula_wthe(image_gray)
     
     # Mostrar la imagen original,la imagen equalizada y por CLAHE
-    cv2.imshow('Original Image', image_gray)
-    cv2.imshow('Equalized Image', equalized_image)
-    cv2.imshow('Clahe', cl1)
-    cv2.imshow('WTHE', wthe_image)
+     # Combinar las imágenes en una cuadrícula 2x2
+    row1 = np.hstack((image_gray, equalized_image))  # Primera fila (arriba)
+    row2 = np.hstack((cl1, wthe_image))             # Segunda fila (abajo)
+    grid = np.vstack((row1, row2))                  # Unimos las dos filas
+    
+    # Muestra la cuadrícula completa
+    cv2.imshow('Imagenes', grid)
+    
+    #Dibuja los histogramas para observar las diferencias
+    dibujar_histograma(image_gray,equalized_image,cl1,wthe_image)
    
 
     datos = {
