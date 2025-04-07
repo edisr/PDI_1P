@@ -5,7 +5,37 @@ from skimage.measure import shannon_entropy
 import pandas as pd
 from wthe import calcula_wthe
 from dibujo_hist import dibujar_histograma
+import matplotlib.pyplot as plt
 
+def comparar_errores(datos):
+    # Configuración para el gráfico
+    parametros = datos["Parámetro"]
+    valores_equalizada = datos["Imagen ecualizada"]
+    valores_clahe = datos["Imagen ecualizada por CLAHE"]
+    valores_wthe = datos["Imagen ecualizada por WTHE"]
+    
+    x = np.arange(len(parametros))  # Posición de los parámetros
+    width = 0.25  # Ancho de las barras
+
+    # Crear la figura
+    plt.figure(figsize=(10, 6))
+    
+    # Graficar las barras
+    plt.bar(x - width, valores_equalizada, width, label='Imagen ecualizada')
+    plt.bar(x, valores_clahe, width, label='Imagen ecualizada por CLAHE', color='orange')
+    plt.bar(x + width, valores_wthe, width, label='Imagen ecualizada por WTHE', color='green')
+    
+    # Etiquetas y título
+    plt.xticks(x, parametros)
+    plt.xlabel('Parámetro')
+    plt.ylabel('Valores')
+    plt.title('Comparación de parámetros por técnica de mejora de imagen')
+    plt.legend()
+
+    # Mostrar el gráfico
+    plt.tight_layout()
+    plt.show()
+    
 def calcula_ambe(image1, image2):
     """ Error de Brillo Medio Absoluto (AMBE) """
     return np.abs(np.mean(image1) - np.mean(image2))
@@ -70,7 +100,7 @@ else:
                                        calcula_entropia(wthe_image),
                                        calcula_contraste(wthe_image)]
     }
-
+    comparar_errores(datos)
     # Crear tabla con pandas
     tabla = pd.DataFrame(datos)
     
