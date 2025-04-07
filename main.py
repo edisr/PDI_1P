@@ -101,12 +101,6 @@ else:
                                        calcula_contraste(wthe_image)]
     }
     comparar_errores(datos)
-    # Crear tabla con pandas
-    tabla = pd.DataFrame(datos)
-    
-    # Imprimir la tabla
-    print(tabla)
-    tabla.to_csv("tabla_comparacion.csv", index=False)
     
     # Esperar una tecla y cerrar ventanas
     cv2.waitKey(0)
