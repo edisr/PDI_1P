@@ -11,4 +11,4 @@ Qing Wang, Member, IEEE, Rabab K. Ward, Fellow, IEEE
 
 
 Paper : Comparación de rendimientos de técnicas de mejora de imagen basadas en ecualización de histogramas: Método Tradicional,CLAHE y WTHE
-
+Presentacion: PDI_1P
