@@ -1,5 +1,6 @@
 # PDI_1P
 _________________________________________________________________________________________
+Trabajo práctico correspondiente al primer parcial de la materia procesamiento digital de imágenes y visión artificial
 
 Dataset utilizado
 https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/
